@@ -13,7 +13,7 @@ TU Kaiserslautern
 TODO:
 - screenshot of marketplace?
 - host this on github
-- host this on github
+- clean up the actions on pkg/actions
 
 ---
 
@@ -37,15 +37,59 @@ Documentation artifacts:
 ---
 
 ### A minimal CI file
-```
-TODO
+```yaml
+name: CI
+
+on:
+  - push
+  - pull_request
+
+...
 ```
 
 ---
 
-### A documentation job
+### A minimal CI file
+```yaml
+jobs:
+  # The CI test job
+  test:
+    name: CI test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gap-actions/setup-gap-for-packages@v1
+      - uses: gap-actions/run-test-for-packages@v1
 ```
-TODO
+
+---
+
+### Only PR and push master
+
+---
+
+### A documentation job
+```yaml
+jobs:
+  ...
+
+  # The documentation job
+  manual:
+    name: Build manuals
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gap-actions/setup-gap-for-packages@v1
+      - uses: gap-actions/compile-documentation-for-packages@v1
+        with:
+          use-latex: 'true'
+      - name: "Upload documentation"
+        uses: actions/upload-artifact@v1
+        with:
+          name: manual
+          path: ./doc/manual.pdf
 ```
 
 
@@ -57,6 +101,15 @@ TODO
 ```
 
 ---
+
+### Badges
+`README.md`
+```
+TODO
+```
+
+---
+
 
 <!-- .slide: style="text-align: left;"> -->
 ### Exercise:
