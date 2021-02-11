@@ -44,13 +44,6 @@ on:
   - push
   - pull_request
 
-...
-```
-
----
-
-### A minimal CI file
-```yaml
 jobs:
   # The CI test job
   test:
@@ -66,13 +59,51 @@ jobs:
 ---
 
 ### Only PR and push master
+```yaml[3-8]
+name: CI
+
+# Trigger the workflow on push or pull request
+on:
+  push:
+    branches:
+      - main # change this to 'master' if necessary!
+  pull_request:
+
+jobs:
+  # The CI test job
+  test:
+    name: CI test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gap-actions/setup-gap-for-packages@v1
+      - uses: gap-actions/run-test-for-packages@v1
+```
 
 ---
 
 ### A documentation job
-```yaml
+```yaml[21-36]
+name: CI
+
+# Trigger the workflow on push or pull request
+on:
+  push:
+    branches:
+      - main # change this to 'master' if necessary!
+  pull_request:
+
 jobs:
-  ...
+  # The CI test job
+  test:
+    name: CI test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gap-actions/setup-gap-for-packages@v1
+      - uses: gap-actions/run-test-for-packages@v1
 
   # The documentation job
   manual:
@@ -85,28 +116,81 @@ jobs:
       - uses: gap-actions/compile-documentation-for-packages@v1
         with:
           use-latex: 'true'
-      - name: "Upload documentation"
+      - name: 'Upload documentation'
         uses: actions/upload-artifact@v1
         with:
           name: manual
           path: ./doc/manual.pdf
 ```
 
-
 ---
 
 ### Some options
-```
-TODO
+```yaml[13-21|22-24|26-33]
+name: CI
+
+# Trigger the workflow on push or pull request
+on:
+  push:
+    branches:
+      - main # change this to 'master' if necessary!
+  pull_request:
+
+jobs:
+  # The CI test job
+  test:
+    name: ${{ matrix.gap-branch }} - HPCGAP ${{ matrix.HPCGAP }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        gap-branch:
+          - master
+          - stable-4.11
+        HPCGAP: ['no']
+        include:
+          - gap-branch: master
+            HPCGAP: 'yes'
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gap-actions/setup-gap-for-packages@v1
+        with:
+          GAPBRANCH: ${{ matrix.gap-branch }}
+          HPCGAP: ${{ matrix.HPCGAP }}
+          GAP_PKGS_TO_BUILD: 'io orb profiling'
+      - uses: gap-actions/run-test-for-packages@v1
+
+  # The documentation job
+  manual:
+    name: Build manuals
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gap-actions/setup-gap-for-packages@v1
+      - uses: gap-actions/compile-documentation-for-packages@v1
+        with:
+          use-latex: 'true'
+      - name: 'Upload documentation'
+        uses: actions/upload-artifact@v1
+        with:
+          name: manual
+          path: ./doc/manual.pdf
 ```
 
 ---
 
 ### Badges
 `README.md`
+```markdown
+[![CI](https://github.com/ssiccha/TestActionPackage/workflows/CI/badge.svg)](https://github.com/ssiccha/TestActionPackage/actions?query=workflow%3ACI+branch%3Amain)
+[![Code Coverage](https://codecov.io/github/ssiccha/TestActionPackage/coverage.svg?branch=main&token=)](https://codecov.io/gh/ssiccha/TestActionPackage)
 ```
-TODO
-```
+
+<small>
+May have to do `branch main` -> `branch master`.
+</small>
 
 ---
 
