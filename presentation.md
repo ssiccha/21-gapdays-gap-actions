@@ -10,14 +10,6 @@ TU Kaiserslautern
 
 ---
 
-TODO:
-- screenshot of marketplace?
-- host this on github
-- clean up the actions on pkg/actions
-- add link to action result for each slide!
-
----
-
 
 <img data-src="gap-actions-orga.png"
      alt="screenshot of the gap-actions github organization page"
@@ -31,8 +23,13 @@ TODO:
 
 ---
 
+### Demo package
+[ssiccha/TestActionPackage](https://github.com/ssiccha/TestActionPackage)
+
+---
+
 ### A minimal CI file
-```yaml
+```yaml[1-5|7-16]
 name: CI
 
 on:
@@ -50,12 +47,6 @@ jobs:
       - uses: gap-actions/setup-gap-for-packages@v1
       - uses: gap-actions/run-test-for-packages@v1
 ```
-
----
-
-### A minimal CI file
-
-[the workflow](TODO)
 
 ---
 
@@ -91,12 +82,6 @@ jobs:
       - uses: gap-actions/setup-gap-for-packages@v1
       - uses: gap-actions/run-test-for-packages@v1
 ```
-
----
-
-### Only PR and push master
-
-[the workflow](TODO)
 
 ---
 
@@ -140,12 +125,6 @@ jobs:
           name: manual
           path: ./doc/manual.pdf
 ```
-
----
-
-### A documentation job
-
-[the workflow](TODO)
 
 ---
 
@@ -206,11 +185,15 @@ jobs:
 
 ---
 
-### Some options
+### More options
 
-[the workflow](TODO)
+See the `README.md` files of:
+- [gap-actions/setup-gap-for-packages](https://github.com/gap-actions/setup-gap-for-packages)
+- [gap-actions/run-test-for-packages](https://github.com/gap-actions/run-test-for-packages)
+- [gap-actions/compile-documentation-for-packages](https://github.com/gap-actions/compile-documentation-for-packages)
 
 ---
+
 
 ### Badges
 [README.md](https://github.com/ssiccha/TestActionPackage)
