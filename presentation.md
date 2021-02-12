@@ -130,7 +130,7 @@ jobs:
 
 ### Some options
 
-```yaml[13-21|22-23|25-32]
+```yaml[13-23|25-32]
 name: CI
 
 # Trigger the workflow on push or pull request
