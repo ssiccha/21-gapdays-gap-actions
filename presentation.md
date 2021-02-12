@@ -130,7 +130,63 @@ jobs:
 
 ### Some options
 
-```yaml[13-21|22-24|26-33]
+```yaml[13-21|22-23|25-32]
+name: CI
+
+# Trigger the workflow on push or pull request
+on:
+  push:
+    branches:
+      - main # change this to 'master' if necessary!
+  pull_request:
+
+jobs:
+  # The CI test job
+  test:
+    name: ${{ matrix.gap-branch }} - HPCGAP ${{ matrix.HPCGAP }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        gap-branch:
+          - master
+          - stable-4.11
+        HPCGAP:
+          - yes
+          - no
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gap-actions/setup-gap-for-packages@v1
+        with:
+          GAPBRANCH: ${{ matrix.gap-branch }}
+          HPCGAP: ${{ matrix.HPCGAP }}
+          GAP_PKGS_TO_BUILD: 'io orb profiling'
+      - uses: gap-actions/run-test-for-packages@v1
+
+  # The documentation job
+  manual:
+    name: Build manuals
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gap-actions/setup-gap-for-packages@v1
+      - uses: gap-actions/compile-documentation-for-packages@v1
+        with:
+          use-latex: 'true'
+      - name: 'Upload documentation'
+        uses: actions/upload-artifact@v1
+        with:
+          name: manual
+          path: ./doc/manual.pdf
+```
+
+---
+
+### matrix.include
+
+```yaml[21-24]
 name: CI
 
 # Trigger the workflow on push or pull request
@@ -182,6 +238,7 @@ jobs:
           name: manual
           path: ./doc/manual.pdf
 ```
+
 
 ---
 
