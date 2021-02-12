@@ -60,7 +60,7 @@ jobs:
 
 ---
 
-### Only PR and push master
+### Only PR and push main
 ```yaml[3-8]
 name: CI
 
