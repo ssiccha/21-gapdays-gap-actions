@@ -28,6 +28,21 @@ TU Kaiserslautern
 
 ---
 
+### Yaml
+
+- map/record
+  ```yaml
+  bread: 5
+  butter: 1000
+  ```
+- list
+  ```yaml
+  - 5
+  - 1000
+  ```
+
+---
+
 ### A minimal CI file
 ```yaml[1-5|7-16]
 name: CI
