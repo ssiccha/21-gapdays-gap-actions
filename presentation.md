@@ -280,6 +280,12 @@ May have to do `branch main` -> `branch master`.
 
 ---
 
+### SSH onto the runner
+
+[Debugging with tmate](https://github.com/marketplace/actions/debugging-with-tmate)
+
+---
+
 <small>
 Background image:
 
