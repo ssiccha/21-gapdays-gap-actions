@@ -76,12 +76,12 @@ jobs:
 ... if your repository is public.
 </small>
 
-[Codecov](https://app.codecov.io/gh/ssiccha/TestActionPackage)
+[codecov](https://app.codecov.io/gh/ssiccha/TestActionPackage)
 
 ---
 
 ### Only PR and push main
-```yaml[3-8]
+```yaml[12-16]
 name: CI
 
 # Trigger the workflow on push or pull request
@@ -96,6 +96,8 @@ jobs:
   test:
     name: CI test
     runs-on: ubuntu-latest
+    # Don't run this twice on PRs for branches pushed to the same repository
+    if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
 
     steps:
       - uses: actions/checkout@v2
@@ -107,15 +109,13 @@ jobs:
 
 ### A documentation job
 
-```yaml[21-36]
+```yaml[19-34]
 name: CI
 
 # Trigger the workflow on push or pull request
 on:
-  push:
-    branches:
-      - main # change this to 'master' if necessary!
-  pull_request:
+  - push
+  - pull_request
 
 jobs:
   # The CI test job
@@ -150,15 +150,13 @@ jobs:
 
 ### Some options
 
-```yaml[13-23|25-32]
+```yaml[11-21|23-30]
 name: CI
 
 # Trigger the workflow on push or pull request
 on:
-  push:
-    branches:
-      - main # change this to 'master' if necessary!
-  pull_request:
+  - push
+  - pull_request
 
 jobs:
   # The CI test job
@@ -206,15 +204,13 @@ jobs:
 
 ### matrix.include
 
-```yaml[21-24]
+```yaml[19-22]
 name: CI
 
 # Trigger the workflow on push or pull request
 on:
-  push:
-    branches:
-      - main # change this to 'master' if necessary!
-  pull_request:
+  - push
+  - pull_request
 
 jobs:
   # The CI test job
