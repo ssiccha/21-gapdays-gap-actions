@@ -71,7 +71,7 @@ jobs:
 ... if your repository is public.
 </small>
 
-[codecov](https://app.codecov.io/gh/ssiccha/TestActionPackage)
+[Codecov](https://app.codecov.io/gh/ssiccha/TestActionPackage)
 
 ---
 
