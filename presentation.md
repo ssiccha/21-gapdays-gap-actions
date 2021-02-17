@@ -272,7 +272,7 @@ See the `README.md` files of:
 [README.md](https://github.com/ssiccha/TestActionPackage)
 ```markdown
 [![CI](https://github.com/ssiccha/TestActionPackage/workflows/CI/badge.svg)](https://github.com/ssiccha/TestActionPackage/actions?query=workflow%3ACI+branch%3Amain)
-[![Code Coverage](https://app.codecov.io/github/ssiccha/TestActionPackage/coverage.svg?branch=main&token=)](https://codecov.io/gh/ssiccha/TestActionPackage)
+[![Code Coverage](https://codecov.io/github/ssiccha/TestActionPackage/coverage.svg?branch=main&token=)](https://codecov.io/gh/ssiccha/TestActionPackage)
 ```
 
 <small>
