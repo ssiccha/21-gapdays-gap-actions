@@ -285,6 +285,14 @@ May have to do `branch main` -> `branch master`.
 
 [Debugging with tmate](https://github.com/marketplace/actions/debugging-with-tmate)
 
+```yaml
+# A debugging step
+- name: "Start SSH if a previous step failed"
+  if: ${{ failure() }}
+  uses: mxschmitt/action-tmate@v3
+  timeout-minutes: 15
+```
+
 ---
 
 <small>
